@@ -7,6 +7,7 @@ import Cabecalho from './components/Cabecalho';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Post from './paginas/Post';
+import Categoria from './paginas/Categoria';
 
 function App() {
 
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route path='/sobre'>
           <Sobre />
+        </Route>
+        <Route path='/categoria/:id'>
+          <Categoria />
         </Route>
         <Route path='/posts/:id'>
           <Post />
