@@ -16,7 +16,7 @@ const ListaCategorias = () => {
             {
                 categorias.map(categoria =>
                     <Link to={`/categoria/${categoria.id}`} key={categoria.id}>
-                        <li className={`lista-categorias__categoria lista-categorias__categoria--${categoria.id}`}>
+                        <li className={`${window.location.href.includes(categoria.id) ? 'active-link' : ''} lista-categorias__categoria lista-categorias__categoria--${categoria.id}`}>
                             {categoria.nome}
                         </li>
                     </Link>

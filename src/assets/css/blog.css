@@ -22,3 +22,8 @@
     background-color: var(--cor-categoria-comportamento);
 }
 
+.active-link {
+    font-weight: bolder;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    text-decoration: underline;
+}
