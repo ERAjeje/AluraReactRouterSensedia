@@ -8,12 +8,14 @@ import Cabecalho from './components/Cabecalho';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Post from './paginas/Post';
 import Categoria from './paginas/Categoria';
+import Banner from './components/Banner';
 
 function App() {
 
   return (
     <Router>
       <Cabecalho />
+      <Banner />
       <Switch>
         <Route exact path='/'>
           <Home />
