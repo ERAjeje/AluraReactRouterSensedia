@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+# Blog Utilizando React Router
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto foi desenvolvido durante o curso Alura *"React Router: Navegação em uma SPA"*, ministrado pelo instrutor *Felipe Nascimento*, como parte da trilha de treinamentos do programa de estágios Sensedia.
 
-## Available Scripts
+Trata-se de um blog que consumirá uma api mockada em um arquivo json, servida pelo package ***json-server***, tendo como objetivo demonstrar a criação e utilização de rotas em uma aplicação SPA React.
 
-In the project directory, you can run:
+## Imagens do SPA
 
-### `yarn start`
+Home
+!["Tela home"](images/1.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Filtragem por Categoria
+!["Filtragem por categoria"](images/2.png)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Alterações do Projeto Original
 
-### `yarn test`
+Foram realizadas algumas alterações que geraram diferenças entre o projeto original do curso e este. A maioria das mudanças foram focadas em melhorias de UX e/ou melhor componetização para redução de redundancias de código.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### URL Amigável
 
-### `yarn build`
+A primeira mudança a elencar é a utilização de uma "url amigável". No código original, ao se navegar a um determinado post, a url apresentada no navegador seria no formato *.../posts/id_do_post*. A mudança foi realizada utilizando os paramentros disponibilizados pela biblioteca *React Router* para construir uma url no formato *.../posts/id/nome_do_post*. Assim foi necessário isolar uma função que normalizasse o título do post retirando os acentos, as caixas altas e substituisse os espaços pelo caracter '-'. Segue o código alterado.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```javascript
+//normalização
+export const normalizeUrl = (url) => url.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-').toLowerCase();
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+// Link dentro da função map para gerar dinamicamente os cards dos posts
+<Link to={`/posts/${post.id}/${normalizeUrl(post.title)}`} key={post.id} className={`cartao-post cartao-post--${post.categoria}`}>
+    <article>
+        <h3 className="cartao-post__titulo">{post.title}</h3>
+        <p className="cartao-post__meta">{post.metadescription}</p>
+    </article>
+</Link>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+!["URL amigável"](images/8.png)
 
-### `yarn eject`
+### Diminuição de Repetição de Código
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+O projeto original utilizava um mesmo trecho de código nas páginas *Categoria.jsx* e *Home.jsx*. este código foi componentizado e incluido no arquivo *App.jsx* para que apareça em todas as páginas, servindo como um banner.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```javascript
+import React from "react";
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+const Banner = () => 
+<div className="container">
+    <h2 className="titulo-pagina">Pet notícias</h2>
+</div>;
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+export default Banner;
+```
 
-## Learn More
+### Melhoria no UX
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Uma melhoria implementada que não tem relação direta com o projeto, mas melhora a interação, foi a inclusão condicional de uma classe CSS para marcar as categorias e subcategorias selecionadas para filtro.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javascript
+<li className={`${window.location.href.includes(subcategoria) ? 'active-link' : ''} lista-categorias__categoria lista-categorias__categoria--${id}`}>
+    {subcategoria}
+</li>
+```
 
-### Code Splitting
+```css
+.active-link {
+    font-weight: bolder;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    text-decoration: underline;
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Categoria Selecionada
+!["Botão de categoria selecionado"](images/3.png)
 
-### Analyzing the Bundle Size
+!["Botão de categoria selecionado"](images/6.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Subcategoria Selecionada
+!["Botão de subcategoria selecionado"](images/4.png)
 
-### Making a Progressive Web App
+## Instalação
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Faça o clone do projeto em sua maquina utilizando o comando 
+```bash
+git clone https://github.com/ERAjeje/AluraReactRouterSensedia.git
+```
 
-### Advanced Configuration
+Dentro da pasta do projeto rode o comando para instalação das dependencias
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+npm install
+```
 
-### Deployment
+ou
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+yarn
+```
 
-### `yarn build` fails to minify
+## Rodando o projeto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Dentro da pasta do projeto utilize o comando
+
+```bash
+npm start
+```
+
+ou
+
+```bash
+yarn start
+```
