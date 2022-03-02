@@ -7,7 +7,7 @@ const ListaPost = ({ url }) => {
 
     const [posts, setPosts] = useState([]);
 
-    useEffect(() => { search(url, setPosts) }, []);
+    useEffect(() => { search(url, setPosts) }, [url]);
 
     return (
         <section className="posts container">
