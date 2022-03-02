@@ -100,6 +100,14 @@ yarn
 Dentro da pasta do projeto utilize o comando
 
 ```bash
+json-server -w db.json -p 5000
+```
+
+para iniciar o servidor da API.
+
+Após isso utilize o código
+
+```bash
 npm start
 ```
 
@@ -108,3 +116,5 @@ ou
 ```bash
 yarn start
 ```
+
+para abrir o projeto 
