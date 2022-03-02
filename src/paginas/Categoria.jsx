@@ -28,10 +28,12 @@ const Categoria = () => {
             <ul className="lista-categorias container flex">
                 {
                     subCategoria.map(subcategoria =>
-                        <li className={`lista-categorias__categoria lista-categorias__categoria--${id}`}
-                            key={subcategoria}>
-                            <Link to={`${url}/${subcategoria}`}>{subcategoria}</Link>
-                        </li>
+                        <Link to={`${url}/${subcategoria}`}>
+                            <li className={`lista-categorias__categoria lista-categorias__categoria--${id}`}
+                                key={subcategoria}>
+                                {subcategoria}
+                            </li>
+                        </Link>
                     )
                 }
             </ul>
