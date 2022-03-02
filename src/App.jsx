@@ -24,7 +24,7 @@ function App() {
         <Route path='/categoria/:id'>
           <Categoria />
         </Route>
-        <Route path='/posts/:id'>
+        <Route path='/posts/:id/:title'>
           <Post />
         </Route>
         <Route>
